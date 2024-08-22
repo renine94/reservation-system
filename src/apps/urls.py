@@ -4,4 +4,5 @@ from django.urls import path
 
 urlpatterns = [
     path("v1/", include("src.apps.accounts.urls.v1")),
+    path("v1/", include("src.apps.reservations.urls.v1")),
 ]
