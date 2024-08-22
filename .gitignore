@@ -1,0 +1,7 @@
+assignment.pdf
+venv/
+.idea/
+__pycache__/
+db.sqlite3
+.env
+.DS_Store
