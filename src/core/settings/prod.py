@@ -1,5 +1,6 @@
 from .base import *
 
+APP_ENV = "prod"
 
 DATABASES = {
     "default": {

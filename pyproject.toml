@@ -1,0 +1,43 @@
+[tool.black]
+exclude = '''
+(
+  /(
+    | \.git
+    | venv
+  )/
+)
+'''
+line-length = 120
+
+[tool.pytest.ini_options]
+markers = [
+    "e2e: tests using external services and checking feature is valid",
+    "integration: modules or components of a application are tested as a combined entity",
+    "unit: tests only one method",
+]
+asyncio_mode = "auto"
+pythonpath = [
+  "src",
+  "tests",
+]
+testpaths = [
+  "tests",
+]
+
+
+[tool.flake8]
+ignore = ["E203", "E266", "E501", "W503", "F403", "F401", "C901"]
+max-line-length = 120
+max-complexity = 12
+per-file-ignores = [
+  "__init__.py:F401",
+  "tests/*:F401,F841",
+]
+exclude = [
+  "venv",
+]
+
+[tool.isort]
+profile = "black"
+force_single_line = true
+line_length = 120
