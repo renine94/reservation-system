@@ -4,6 +4,7 @@ exclude = '''
   /(
     | \.git
     | venv
+    | src/apps/.*/migrations
   )/
 )
 '''

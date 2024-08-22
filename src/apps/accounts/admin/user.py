@@ -35,6 +35,6 @@ class CustomUserAdmin(UserAdmin):
 
 @admin.register(User)
 class UserAdmin(CustomUserAdmin):
-    list_display = ['username', 'email', 'is_superuser', 'is_staff', 'is_active', 'created_at']
-    list_filter = ['is_staff', 'is_active']
-    search_fields = ['username', 'email']
+    list_display = ["username", "email", "is_superuser", "is_staff", "is_active", "created_at"]
+    list_filter = ["is_staff", "is_active"]
+    search_fields = ["username", "email"]

@@ -14,6 +14,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.http import JsonResponse
@@ -23,8 +24,8 @@ from django.conf import settings
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("health/", lambda x: JsonResponse({'message': 'ok'})),
-    path('auth/', include('rest_framework.urls'), name='rest-framework'),  # DRF 에서 logout 위해
+    path("health/", lambda x: JsonResponse({"message": "ok"})),
+    path("auth/", include("rest_framework.urls"), name="rest-framework"),  # DRF 에서 logout 위해
     path("api/", include("src.apps.urls")),
 ]
 
@@ -36,7 +37,7 @@ if settings.DEBUG:
     schema_view = get_schema_view(
         openapi.Info(
             title="Grep API - 지원자 강재구 (renine94.dev)",
-            default_version='v1',
+            default_version="v1",
             description="API description",
             terms_of_service="https://www.google.com/policies/terms/",
             contact=openapi.Contact(email="renine94.dev@gmail.com"),
@@ -47,8 +48,8 @@ if settings.DEBUG:
     )
 
     urlpatterns += [
-        path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-        path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+        path("swagger<format>/", schema_view.without_ui(cache_timeout=0), name="schema-json"),
+        path("swagger/", schema_view.with_ui("swagger", cache_timeout=0), name="schema-swagger-ui"),
     ]
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

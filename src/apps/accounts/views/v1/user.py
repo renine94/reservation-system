@@ -29,27 +29,27 @@ class UserCRUDView(ModelViewSet):
 
     def get_authenticators(self):
         """회원 탈퇴는 인증 필요"""
-        if self.request.method == 'DELETE':
+        if self.request.method == "DELETE":
             return [JWTAuthentication()]
-        if any([p in self.request.path for p in ['logout', 'me']]):
+        if any([p in self.request.path for p in ["logout", "me"]]):
             return [JWTAuthentication()]
         return [auth() for auth in self.authentication_classes]
 
     def get_permissions(self):
         """삭제는 staff 거나 나 자신만"""
-        if self.action in ['destroy', 'me']:
+        if self.action in ["destroy", "me"]:
             return [IsOwnerOnly()]
-        if self.action == 'logout':
+        if self.action == "logout":
             return [IsAuthenticated()]
         return [permission() for permission in self.permission_classes]
 
-    @swagger_auto_schema(operation_summary='회원 가입 API')
+    @swagger_auto_schema(operation_summary="회원 가입 API")
     def create(self, request, *args, **kwargs):
         return super().create(request, *args, **kwargs)
 
     def perform_create(self, serializer):
-        password = serializer.validated_data.pop('password2')
-        serializer.validated_data['password'] = make_password(password)
+        password = serializer.validated_data.pop("password2")
+        serializer.validated_data["password"] = make_password(password)
         super().perform_create(serializer)
 
     def perform_destroy(self, instance: User) -> None:
@@ -58,9 +58,7 @@ class UserCRUDView(ModelViewSet):
         instance.save()
 
     @swagger_auto_schema(
-        request_body=TokenObtainPairSerializer,
-        responses={200: TokenSerializer},
-        operation_summary='유저 로그인'
+        request_body=TokenObtainPairSerializer, responses={200: TokenSerializer}, operation_summary="유저 로그인"
     )
     def login(self, request):
         """email과 password로 로그인하여 access, refresh 토큰을 발행한다."""
@@ -78,16 +76,21 @@ class UserCRUDView(ModelViewSet):
 
         return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
-    @action(detail=False, methods=['post'], authentication_classes=(JWTAuthentication, ), permission_classes=(IsAuthenticated,))
+    @action(
+        detail=False,
+        methods=["post"],
+        authentication_classes=(JWTAuthentication,),
+        permission_classes=(IsAuthenticated,),
+    )
     def logout(self, request):
         """로그아웃 (refresh token 차단)"""
         try:
             refresh_token = request.data["refresh"]
             token = RefreshToken(refresh_token)
             token.blacklist()
-            return Response({'message': 'logout success!'}, status=status.HTTP_205_RESET_CONTENT)
+            return Response({"message": "logout success!"}, status=status.HTTP_205_RESET_CONTENT)
         except Exception as e:
-            return Response({'message': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"message": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
     def me(self, request):
         """내 정보 보기, 토큰으로 요청 보낸 상태이어야 합니다."""
