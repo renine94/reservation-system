@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 from src.core.base.model import BaseModel
 from src.core.errors.exam import NotEnoughCapacityException, MaxCapacityExceededException
@@ -47,6 +48,13 @@ class Exam(BaseModel):
         1. 시험에 예약은 N개 있으나, 예약확정이 되어야만 current_capacity 값을 업데이트해줍니다.
         """
         return self.max_capacity > self.current_capacity
+
+    @property
+    def is_reservable(self) -> bool:
+        """
+        시험은 3일전까지 예약 가능
+        """
+        return (self.started_at - timezone.now()) <= timezone.timedelta(days=3)
 
     def increase_current_capacity(self, value: int = 1):
         """

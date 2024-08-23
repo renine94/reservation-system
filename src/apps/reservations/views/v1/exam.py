@@ -24,5 +24,5 @@ class ExamAPI(ModelViewSet):
     def reservation(self, request, pk):
         """시험을 예약하고, 예약상태를 PENDING 으로 초기화"""
         exam = get_object_or_404(self.queryset, pk=pk)
-        reservation = ReservationService.reserve_exam(request.user.id, exam.id)
+        reservation = ReservationService.reserve_exam(request.user, exam)
         return Response(reservation, status=status.HTTP_200_OK)

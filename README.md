@@ -9,8 +9,12 @@
   - 로컬에서는 sqlite3
   - docker-compose는 prod 환경일때를 가정하여 db, cache, nginx 등 붙였습니다.
 
-
+  
 2. 회원가입과 같은 특수한 API 를 제외하고 대부분의 API는 유저인증이 되어있어야 합니다.<br>아래의 API 명세 또는 [Swagger](http://localhost/swagger/) 을 통해 회원가입과 로그인후 access_token 을 header 에 넣어주셔야 합니다.
+
+
+# ERD
+![ERD](assets/images/img.png)
 
 
 # 사용 기술
