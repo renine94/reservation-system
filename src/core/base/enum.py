@@ -16,7 +16,7 @@ class BaseEnum(Enum):
     """
 
     @classmethod
-    def get_by_value(cls, value) -> 'BaseEnum':
+    def get_by_value(cls, value) -> "BaseEnum":
         for item in cls:
             if item.value == value:
                 return item

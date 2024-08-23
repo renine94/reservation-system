@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Apps
     "src.apps.accounts",
-    'src.apps.reservations',
+    "src.apps.reservations",
     # Library
     "rest_framework",
     "rest_framework_simplejwt",
@@ -142,7 +142,6 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",  # PageNumberPagination, CursorPagination, LimitOffsetPagination
     "PAGE_SIZE": 20,
     # 'EXCEPTION_HANDLER': 'src.core.errors.custom_exception_handler',
-
 }
 # 로그인 토큰 설정
 SIMPLE_JWT = {

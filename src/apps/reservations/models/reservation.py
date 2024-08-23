@@ -22,9 +22,12 @@ class Reservation(BaseModel):
     """
     예약 테이블
     """
-    user = models.ForeignKey("accounts.User", on_delete=models.CASCADE, related_name='reservations')
-    exam = models.ForeignKey("reservations.Exam", on_delete=models.CASCADE, related_name='reservations')
-    status = models.CharField("예약 상태", max_length=10, choices=ReservationStatusEnum.items(), default=ReservationStatusEnum.PENDING.value)
+
+    user = models.ForeignKey("accounts.User", on_delete=models.CASCADE, related_name="reservations")
+    exam = models.ForeignKey("reservations.Exam", on_delete=models.CASCADE, related_name="reservations")
+    status = models.CharField(
+        "예약 상태", max_length=10, choices=ReservationStatusEnum.items(), default=ReservationStatusEnum.PENDING.value
+    )
 
     objects = ReservationManager.from_queryset(ReservationQuerySet)()
 
@@ -35,9 +38,7 @@ class Reservation(BaseModel):
             models.Index(fields=["user", "exam"], name="idx_user_exam"),
             models.Index(fields=["status"], name="idx_status"),
         ]
-        constraints = [
-            models.UniqueConstraint(fields=['user', 'exam'], name='unique_user_exam')
-        ]
+        constraints = [models.UniqueConstraint(fields=["user", "exam"], name="unique_user_exam")]
 
     def __str__(self):
         return f"{self.user}'s reservation for {self.exam}"

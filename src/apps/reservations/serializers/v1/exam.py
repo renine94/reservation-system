@@ -16,6 +16,6 @@ class ExamSerializer(serializers.ModelSerializer):
             "reservation_ended_at",
             "started_at",
             "ended_at",
-            "created_at"
+            "created_at",
         ]
         read_only_fields = ["current_capacity"]

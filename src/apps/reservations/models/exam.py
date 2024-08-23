@@ -17,6 +17,7 @@ class Exam(BaseModel):
     시험 테이블
     나중에 기능이 확장설계되면, 하나의 회사가 여러개의 시험을 가질 수 있게 되고, company 필드가 추가될듯?
     """
+
     users = models.ManyToManyField("accounts.User", related_name="exams", through="reservations.Reservation")
     title = models.CharField("시험 제목", max_length=255)
     description = models.TextField("시험 내용")

@@ -13,8 +13,8 @@ from src.core.permissions import IsOwnerOnly
 class ReservationAPI(generics.ListAPIView):
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
-    authentication_classes = (JWTAuthentication, )
-    permission_classes = (IsAuthenticated, )
+    authentication_classes = (JWTAuthentication,)
+    permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         """관리자는 모든 예약을 가져오고, 고객은 본인의 예약목록만 조회가능"""
@@ -23,10 +23,7 @@ class ReservationAPI(generics.ListAPIView):
         return queryset if user.is_staff else queryset.filter(user=user)
 
 
-class ReservationDetailAPI(
-    viewsets.GenericViewSet,
-    generics.RetrieveUpdateDestroyAPIView
-):
+class ReservationDetailAPI(viewsets.GenericViewSet, generics.RetrieveUpdateDestroyAPIView):
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
     authentication_classes = (JWTAuthentication,)
