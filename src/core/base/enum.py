@@ -14,7 +14,7 @@ class BaseEnum(Enum):
         Color.has_key('YELLOW')  # False
         Color.RED  # RED: #FF0000
     """
-    
+
     @classmethod
     def get_by_value(cls, value) -> 'BaseEnum':
         for item in cls:

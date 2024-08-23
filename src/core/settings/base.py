@@ -110,7 +110,7 @@ TIME_ZONE = "Asia/Seoul"
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -141,6 +141,8 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",  # PageNumberPagination, CursorPagination, LimitOffsetPagination
     "PAGE_SIZE": 20,
+    # 'EXCEPTION_HANDLER': 'src.core.errors.custom_exception_handler',
+
 }
 # 로그인 토큰 설정
 SIMPLE_JWT = {

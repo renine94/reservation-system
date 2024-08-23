@@ -18,7 +18,8 @@ from rest_framework_simplejwt.exceptions import InvalidToken
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.exceptions import TokenError
 
-from src.apps.accounts.permissions import IsOwnerOnly
+from src.core.permissions import IsOwnerOnly
+from src.core.paginations import MyCursorPagination
 
 
 class UserCRUDView(ModelViewSet):
@@ -26,6 +27,7 @@ class UserCRUDView(ModelViewSet):
     serializer_class = UserSerializer
     authentication_classes = ()
     permission_classes = ()
+    pagination_class = MyCursorPagination
 
     def get_authenticators(self):
         """회원 탈퇴는 인증 필요"""
