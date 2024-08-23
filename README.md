@@ -1,6 +1,7 @@
 # 코드 실행
-1. `docker-compose -f infra/docker-compose.yml up -d`
+1. `docker-compose -f infra/docker-compose.yaml up -d`
 - 실행전, 본인 로컬에서 8000, 5432, 6379, 80번 포트 사용중인걸 모두 종료해주세요.
+- `.env.sample` 파일의 이름을 `.env` 로 변경해주세요.
 - Backend: 8000
 - PostgresQL: 5432
 - Redis: 6379
@@ -26,10 +27,18 @@
 - pagination
 
 # API 명세
+프로젝트 파일의 `postman_collection.json` 을 postman툴에 import 해주세요.
+
+
+**주의**
+
+포스트맨 툴로 import 시킨뒤에, 포트번호 8000번으로 되어있는부분을 모두 없애주셔야 됩니다. 
+docker-compose up 으로 실행시키게되면 상용환경으로 실행시키는걸 가정하였기에 nginx 가 붙어있어 80번 포트로 요청보내게 됩니다.
 
 > [Swagger](http://localhost/swagger/) 을 참고하거나 postman_example.json 파일을 import 하셔도 됩니다.
+> 스웨거는 docker-compose up을 통해 실행한 경우 상용환경으로 인식하여 swagger 페이지가 보이지않습니다.
 
-### User
+### User (샘플)
 
 |                  | Method | Endpoint                     | Data                                 | Auth required |
 | ---------------- | ------ | ---------------------------- | ------------------------------------ | ------------- |
@@ -44,15 +53,26 @@
 
 
 
-### Reservation
-- TBD
-
-
 # 특별히 신경 쓴 부분
-1. TBD
+1. 요구사항에 있는 인증/인가 또는 비즈니스 로직들
+2. 확장가능한 디렉토리 구조로 설계하느라고 신경썼습니다.
+3. 공통모듈은 모두 core 패키지안에 위치시켜 재사용 가능하도록 변경했습니다.
+3. `api/v1, api/v2, api/v3` 로 추후 분기처리 가능하도록 패키지를 구성했습니다.
+4. 예약확정시, 예약 데이터의 빈번한 업데이트 및 동시접근 가능성을 고려하여 트랜잭션 및 락을 사용하도록 처리하였습니다.
+
 
 # 최종 구현된 범위
-- TBD
+- 요구사항 전부
+
+
+# 추가하면 좋을것
+- 시간을 계산하는 로직에서 django timezone 을 직접 불러다 쓰는부분을 TimeHelper 와 같은 클래스를 만들어서 한곳에서 관리하고, 재사용 가능한 함수를 만들어서 호출하는게 좋을것 같습니다.
+- Django Debug Toolbar 를 도입해서 각 API 들이 호출하는 SQL쿼리 횟수를 보고 select_related, prefetch_related 등을 사용하여 쿼리를 최적화 할것 같습니다.
+
+# 고민 포인트
+- Serializer 에서 비즈니스 로직까지 처리시키는게 맞을지 고민입니다.
+- model 에 비즈니스 로직이 포함되는게 좋은지, Service 레이어를 만드는게 나은지 고민중입니다.
+- model 정의 부분에 manager와 queryset 에 filter(), annotate() 같은 함수를 두어 repository 역할을 하게 하는게 맞는지, 아니면 따로 repository 레이어를 두는게 맞는지 고민입니다.
 
 
 # ENV

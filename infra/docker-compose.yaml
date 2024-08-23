@@ -12,6 +12,7 @@ services:
     env_file:
       - ../.env
     environment:
+      - APP_ENV=prod
       - DJANGO_SETTINGS_MODULE=src.core.settings.prod
     ports:
       - "8000:8000"
