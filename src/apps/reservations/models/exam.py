@@ -2,7 +2,8 @@ from django.db import models
 from django.utils import timezone
 
 from src.core.base.model import BaseModel
-from src.core.errors.exam import NotEnoughCapacityException, MaxCapacityExceededException
+from src.core.errors.exam import MaxCapacityExceededException
+from src.core.errors.exam import NotEnoughCapacityException
 
 
 class ExamManager(models.Manager):

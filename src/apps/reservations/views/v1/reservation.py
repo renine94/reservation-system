@@ -1,7 +1,8 @@
+from rest_framework import generics
+from rest_framework import status
+from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
-from rest_framework import generics, status
-from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
@@ -10,7 +11,8 @@ from src.apps.reservations.serializers.v1 import ReservationSerializer
 from src.apps.reservations.services.v1 import ReservationService
 from src.core.enums.reservation import ReservationStatusEnum
 from src.core.errors.reservation import NotAllowedUpdateReservation
-from src.core.permissions import IsOwnerOnly, IsAdminOnly
+from src.core.permissions import IsAdminOnly
+from src.core.permissions import IsOwnerOnly
 
 
 class ReservationAPI(generics.ListAPIView):

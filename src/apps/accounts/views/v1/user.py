@@ -1,25 +1,22 @@
-from drf_yasg.utils import swagger_auto_schema
-
-from src.apps.accounts.models import User
-from src.apps.accounts.serializers.v1.user import UserSerializer, TokenSerializer
-
 from django.contrib.auth.hashers import make_password
-
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
+from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.decorators import action
-
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework_simplejwt.exceptions import InvalidToken
+from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.serializers import TokenRefreshSerializer
-from rest_framework_simplejwt.exceptions import InvalidToken
-from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework_simplejwt.exceptions import TokenError
+from rest_framework_simplejwt.tokens import RefreshToken
 
-from src.core.permissions import IsOwnerOnly
+from src.apps.accounts.models import User
+from src.apps.accounts.serializers.v1.user import TokenSerializer
+from src.apps.accounts.serializers.v1.user import UserSerializer
 from src.core.paginations import MyCursorPagination
+from src.core.permissions import IsOwnerOnly
 
 
 class UserCRUDView(ModelViewSet):

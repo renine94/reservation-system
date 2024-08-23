@@ -1,10 +1,12 @@
 from django.db import IntegrityError
 
 from src.apps.accounts.models import User
-from src.apps.reservations.models import Reservation, Exam
+from src.apps.reservations.models import Exam
+from src.apps.reservations.models import Reservation
 from src.core.enums.reservation import ReservationStatusEnum
-from src.core.errors.reservation import ReservationDuplicatedException, InvalidReservationDateTimeException, \
-    NotAllowedDeleteReservation
+from src.core.errors.reservation import InvalidReservationDateTimeException
+from src.core.errors.reservation import NotAllowedDeleteReservation
+from src.core.errors.reservation import ReservationDuplicatedException
 
 
 class ReservationService:

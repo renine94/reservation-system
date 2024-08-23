@@ -1,10 +1,11 @@
-from django.db import models, transaction
+from typing import TYPE_CHECKING
+
+from django.db import models
+from django.db import transaction
 
 from src.core.base.model import BaseModel
 from src.core.enums.reservation import ReservationStatusEnum
 from src.core.errors.reservation import AlreadyConfirmedException
-from typing import TYPE_CHECKING
-
 
 if TYPE_CHECKING:
     from src.apps.reservations.models import Exam
