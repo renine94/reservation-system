@@ -52,9 +52,13 @@ class Exam(BaseModel):
     @property
     def is_reservable(self) -> bool:
         """
-        시험은 3일전까지 예약 가능
+        1. 시험은 3일전까지 예약 가능
+        2. 예약 가능한 기간이어야 합니다.
         """
-        return (self.started_at - timezone.now()) <= timezone.timedelta(days=3)
+        if not self.reservation_started_at <= timezone.now() <= self.reservation_ended_at:
+            return False
+
+        return (self.started_at - timezone.now()) >= timezone.timedelta(days=3)
 
     def increase_current_capacity(self, value: int = 1):
         """

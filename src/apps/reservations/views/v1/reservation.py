@@ -7,7 +7,10 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from src.apps.reservations.models import Reservation
 from src.apps.reservations.serializers.v1 import ReservationSerializer
-from src.core.permissions import IsOwnerOnly
+from src.apps.reservations.services.v1 import ReservationService
+from src.core.enums.reservation import ReservationStatusEnum
+from src.core.errors.reservation import NotAllowedUpdateReservation
+from src.core.permissions import IsOwnerOnly, IsAdminOnly
 
 
 class ReservationAPI(generics.ListAPIView):
@@ -29,7 +32,28 @@ class ReservationDetailAPI(viewsets.GenericViewSet, generics.RetrieveUpdateDestr
     authentication_classes = (JWTAuthentication,)
     permission_classes = (IsOwnerOnly,)
 
-    @action(methods=["post"], detail=True)
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+
+        if request.user.is_staff or instance.status != ReservationStatusEnum.CONFIRM.value:
+            super().perform_update(serializer)
+        else:
+            raise NotAllowedUpdateReservation
+
+        if getattr(instance, '_prefetched_objects_cache', None):
+            # If 'prefetch_related' has been applied to a queryset, we need to
+            # forcibly invalidate the prefetch cache on the instance.
+            instance._prefetched_objects_cache = {}
+
+        return Response(serializer.data)
+
+    def perform_destroy(self, instance: Reservation):
+        ReservationService.remove_reservation(self.request.user, instance)
+
+    @action(methods=["post"], detail=True, permission_classes=[IsAdminOnly])
     def confirm(self, request, pk):
         reservation: Reservation = self.get_object()
         reservation.confirm()
