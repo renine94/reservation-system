@@ -134,7 +134,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"testuser01@gmail.com\",\n    \"password\": \"qwer1234!\"\n}",
+							"raw": "{\n    \"email\": \"testuser02@gmail.com\",\n    \"password\": \"qwer1234!\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -320,11 +320,21 @@
 				{
 					"name": "03_시험 생성",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI0NDgyNjUxLCJpYXQiOjE3MjQ0NzkwNTEsImp0aSI6IjZjOTM3Y2Y5YWNhYTRjNjU5OGJjYTk3M2I1YTM3NzQ3IiwidXNlcl9pZCI6MX0.-nwpU5-mP0PqGh2pU9mrhHbZhxxgX7W9cSqXoVsySkw",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"테스트 시험이름07\",\n    \"description\": \"테스트 시험내용07\",\n    \"max_capacity\": 30000,\n    \"reservation_started_at\": \"2024-08-25T00:00:00\",\n    \"reservation_ended_at\": \"2024-08-25T23:59:59\",\n    \"started_at\": \"2024-09-01T15:00:00\",\n    \"ended_at\": \"2024-09-01T16:00:00\"\n}",
+							"raw": "{\n    \"title\": \"테스트 시험이름12\",\n    \"description\": \"테스트 시험내용12\",\n    \"max_capacity\": 50000,\n    \"reservation_started_at\": \"2024-08-24T00:00:00\",\n    \"reservation_ended_at\": \"2024-08-24T23:59:59\",\n    \"started_at\": \"2024-09-01T15:00:00\",\n    \"ended_at\": \"2024-09-01T16:00:00\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -356,7 +366,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI0MzkyOTQ1LCJpYXQiOjE3MjQzODkzNDUsImp0aSI6IjllMDMyNTg3NThhNjRiNWRhYzVlNTMyMGEzOTM2MWUwIiwidXNlcl9pZCI6Mn0.6SI2eLQxrTEhlsuaJO7C2AMkAZ9w-lpp7Y84FtSxa3k",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI0NDg0Nzg3LCJpYXQiOjE3MjQ0ODExODcsImp0aSI6Ijg2MTdkYWQ2ZWFlNjQwYTc5MTk5YzdhNDFmMDdkODViIiwidXNlcl9pZCI6Mn0.NCtJARMZdXNIvmDknhEuuWDsnfi2bY5Y_fuHRlwdfSc",
 									"type": "string"
 								}
 							]
@@ -365,7 +375,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "",
+							"raw": "{\n    \"number_of_applicants\": 49999\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -373,7 +383,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8000/api/v1/exams/7/reservation/",
+							"raw": "http://localhost:8000/api/v1/exams/12/reservation/",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -383,7 +393,7 @@
 								"api",
 								"v1",
 								"exams",
-								"7",
+								"12",
 								"reservation",
 								""
 							]
@@ -453,7 +463,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI0MzkxNzMyLCJpYXQiOjE3MjQzODgxMzIsImp0aSI6IjUzZjVmNDliYzA3YzRkOTA4OWRjYTQ5MGJiNzYwNDEyIiwidXNlcl9pZCI6Mn0.bU2_KGqZYBmo1wCR45JqzbDkMVOTKW-kBz6GxdUYbac",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI0NDgzNzY3LCJpYXQiOjE3MjQ0ODAxNjcsImp0aSI6Ijc5YzhkMzdiYzUxMjRiNzFhYmM1MTI1MDAxYjRmMGJmIiwidXNlcl9pZCI6MX0.5geM2byOUnSq-Hn3_6qOFKCS6G3vmmkhnU_WIKW5dOM",
 									"type": "string"
 								}
 							]
@@ -508,7 +518,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI0Mzg2NjQ4LCJpYXQiOjE3MjQzODMwNDgsImp0aSI6IjViNzFkOGEyYzQwMTQ0NWE5NmFjMWI3OTVjOGVjOWY5IiwidXNlcl9pZCI6Mn0.8B4YbabBTx0xyKeh5sy-sbzua4kUjcXmig0is0mBRqw",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI0NDg0Nzg3LCJpYXQiOjE3MjQ0ODExODcsImp0aSI6Ijg2MTdkYWQ2ZWFlNjQwYTc5MTk5YzdhNDFmMDdkODViIiwidXNlcl9pZCI6Mn0.NCtJARMZdXNIvmDknhEuuWDsnfi2bY5Y_fuHRlwdfSc",
 									"type": "string"
 								}
 							]
@@ -516,7 +526,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/api/v1/reservations/1/confirm/",
+							"raw": "http://localhost:8000/api/v1/reservations/12/confirm/",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -526,7 +536,7 @@
 								"api",
 								"v1",
 								"reservations",
-								"1",
+								"12",
 								"confirm",
 								""
 							]
