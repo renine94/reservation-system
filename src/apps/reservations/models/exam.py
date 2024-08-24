@@ -61,7 +61,7 @@ class Exam(BaseModel):
 
         return (self.started_at - timezone.now()) >= timezone.timedelta(days=3)
 
-    def increase_current_capacity(self, value: int = 1):
+    def increase_current_capacity(self, value: int):
         """
         현재 응시생 수를 증가시킵니다.
         """

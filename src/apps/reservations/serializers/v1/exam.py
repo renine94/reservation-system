@@ -8,6 +8,7 @@ class ExamSerializer(serializers.ModelSerializer):
     class Meta:
         model = Exam
         fields = [
+            "id",
             "title",
             "description",
             "max_capacity",
@@ -19,3 +20,7 @@ class ExamSerializer(serializers.ModelSerializer):
             "created_at",
         ]
         read_only_fields = ["current_capacity"]
+
+
+class ExamReservationCreateSerializer(serializers.Serializer):
+    number_of_applicants = serializers.IntegerField(min_value=1, help_text="응시 인원 수")

@@ -57,7 +57,9 @@ class ReservationDetailAPI(viewsets.GenericViewSet, generics.RetrieveUpdateDestr
 
     @action(methods=["post"], detail=True, permission_classes=[IsAdminOnly])
     def confirm(self, request, pk):
+        """예약 확정"""
         reservation: Reservation = self.get_object()
         reservation.confirm()
+        reservation.refresh_from_db()
         serializer = self.get_serializer(reservation)
         return Response(serializer.data, status=status.HTTP_200_OK)

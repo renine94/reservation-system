@@ -12,7 +12,7 @@ from src.core.errors.reservation import ReservationDuplicatedException
 class ReservationService:
 
     @classmethod
-    def reserve_exam(cls, user: User, exam: Exam):
+    def reserve_exam(cls, user: User, exam: Exam, number_of_applicants: int):
         """
         시험 예약
         1. 예약은 시험 시작 3일 전까지 신청가능
@@ -21,7 +21,11 @@ class ReservationService:
             raise InvalidReservationDateTimeException
 
         try:
-            reservation = Reservation.objects.create(user_id=user.id, exam_id=exam.id)
+            reservation = Reservation.objects.create(
+                user_id=user.id,
+                exam_id=exam.id,
+                number_of_applicants=number_of_applicants
+            )
         except IntegrityError:
             raise ReservationDuplicatedException
         return reservation

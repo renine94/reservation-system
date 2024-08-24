@@ -26,9 +26,8 @@ class Reservation(BaseModel):
 
     user = models.ForeignKey("accounts.User", on_delete=models.CASCADE, related_name="reservations")
     exam = models.ForeignKey("reservations.Exam", on_delete=models.CASCADE, related_name="reservations")
-    status = models.CharField(
-        "예약 상태", max_length=10, choices=ReservationStatusEnum.items(), default=ReservationStatusEnum.PENDING.value
-    )
+    status = models.CharField("예약 상태", max_length=10, choices=ReservationStatusEnum.items(), default=ReservationStatusEnum.PENDING.value)
+    number_of_applicants = models.PositiveIntegerField("응시생 수")
 
     objects = ReservationManager.from_queryset(ReservationQuerySet)()
 
@@ -44,7 +43,6 @@ class Reservation(BaseModel):
     def __str__(self):
         return f"{self.user}'s reservation for {self.exam}"
 
-    @transaction.atomic
     def confirm(self):
         """
         예약확정
@@ -55,9 +53,10 @@ class Reservation(BaseModel):
             raise AlreadyConfirmedException
 
         self.status = ReservationStatusEnum.CONFIRM.value
-        self.save(update_fields=["status"])
 
         exam: "Exam" = self.exam.__class__.objects.select_for_update().get(pk=self.exam.pk)
-        exam.increase_current_capacity()
 
+        with transaction.atomic():
+            self.save(update_fields=["status"])
+            exam.increase_current_capacity(self.number_of_applicants)
         return self
